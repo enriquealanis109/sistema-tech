@@ -6,6 +6,12 @@ import {
 } from "../models/client.model.js";
 
 export async function createClient(req: Request, res: Response) {
+  /* #swagger.tags = ['Clients']
+     #swagger.summary = 'Registra un cliente nuevo'
+     #swagger.parameters['body'] = {
+       in: 'body',
+       schema: { name: 'Ana López', email: 'ana@gmail.com' }
+     } */
   try {
     const client = await createClientInBd(req.body);
     res.status(201).json(client);
@@ -18,6 +24,8 @@ export async function createClient(req: Request, res: Response) {
 }
 
 export async function getClients(req: Request, res: Response) {
+  /* #swagger.tags = ['Clients']
+     #swagger.summary = 'Lista todos los clientes' */
   try {
     const clients = await getAllClients();
     res.json(clients);
@@ -27,6 +35,8 @@ export async function getClients(req: Request, res: Response) {
 }
 
 export async function getClientId(req: Request, res: Response) {
+  /* #swagger.tags = ['Clients']
+     #swagger.summary = 'Obtiene un cliente por su id' */
   const id = Number(req.params.id);
   if (!id) return res.status(400).json({ error: "El id debe ser un numero" });
   try {

@@ -6,6 +6,12 @@ import {
 } from "../models/employee.model.js";
 
 export async function createEmployee(req: Request, res: Response) {
+  /* #swagger.tags = ['Employees']
+     #swagger.summary = 'Registra un empleado nuevo'
+     #swagger.parameters['body'] = {
+       in: 'body',
+       schema: { name: 'Luis Torres', position: 'Vendedor' }
+     } */
   try {
     const employee = await createEmployeInBd(req.body);
     res.status(201).json(employee);
@@ -15,6 +21,9 @@ export async function createEmployee(req: Request, res: Response) {
 }
 
 export async function getEmployees(req: Request, res: Response) {
+  /* #swagger.tags = ['Employees']
+     #swagger.summary = 'Lista de todos los empleados'
+     } */
   try {
     const employee = await getAllEmployees();
     res.json(employee);
@@ -24,6 +33,9 @@ export async function getEmployees(req: Request, res: Response) {
 }
 
 export async function getEmployeesId(req: Request, res: Response) {
+  /* #swagger.tags = ['Employees']
+     #swagger.summary = 'Obtiene un empleado por id'
+     } */
   const id = Number(req.params.id);
   if (!id) return res.status(400).json({ error: "El id debe ser un número" });
   try {
