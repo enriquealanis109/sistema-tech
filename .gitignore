@@ -9,3 +9,4 @@ generated/
 *.log
 /src/generated/prisma
 .windsurf/
+swagger-output.json
