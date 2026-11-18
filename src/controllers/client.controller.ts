@@ -3,7 +3,7 @@ import {
   createClient as createClientInBd,
   getAllClients,
   getClientById,
-} from "../models/clientModel.js";
+} from "../models/client.model.js";
 
 export async function createClient(req: Request, res: Response) {
   try {

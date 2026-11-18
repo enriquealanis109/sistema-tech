@@ -1,5 +1,5 @@
 import prisma from "../config/prisma.js";
-import type { ClientInput } from "../middlewares/validateSchema.js";
+import type { ClientInput } from "../middlewares/validate.schema.js";
 
 export async function createClient(data: ClientInput) {
   return prisma.client.create({ data });

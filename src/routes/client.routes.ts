@@ -3,8 +3,8 @@ import {
   createClient,
   getClients,
   getClientId,
-} from "../controllers/clientController.js";
-import { validateClient } from "../middlewares/validateSchema.js";
+} from "../controllers/client.controller.js";
+import { validateClient } from "../middlewares/validate.schema.js";
 
 const router: Router = Router();
 
