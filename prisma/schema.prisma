@@ -97,7 +97,7 @@ model Sale {
   employee   Employee @relation(fields: [employeeId], references: [id])
   employeeId Int      @map("employee_id")
 
-  details SaleDetail[]
+  saleDetails SaleDetail[]
 
   @@map("sales")
 }
@@ -112,5 +112,5 @@ model SaleDetail {
   product   Product @relation(fields: [productId], references: [id])
   productId Int     @map("product_id")
 
-  @@map("detail_sales")
+  @@map("sale_details")
 }

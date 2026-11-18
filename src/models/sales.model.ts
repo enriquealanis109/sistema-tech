@@ -8,24 +8,30 @@ export interface SaleDetailInput {
 export interface CreateSaleInput {
   clientId: number;
   employeeId: number;
-  details: SaleDetailInput[];
+  sale_details: SaleDetailInput[];
 }
 const saleInclude = {
   client: true,
   employee: true,
-  details: { include: { product: true } },
+  saleDetails: { include: { product: true } },
 };
-export function findSales() {
-  return prisma.sale.findMany({
+function formatSale<T extends { saleDetails: unknown }>(sale: T) {
+  const { saleDetails, ...rest } = sale;
+  return { ...rest, sale_details: saleDetails };
+}
+export async function findSales() {
+  const sales = await prisma.sale.findMany({
     orderBy: { date: "desc" },
     include: saleInclude,
   });
+  return sales.map(formatSale);
 }
-export function findSaleById(id: number) {
-  return prisma.sale.findUnique({
+export async function findSaleById(id: number) {
+  const sale = await prisma.sale.findUnique({
     where: { id },
     include: saleInclude,
   });
+  return sale ? formatSale(sale) : null;
 }
 export function createSale(input: CreateSaleInput) {
   return prisma.$transaction(async (transaction) => {
@@ -39,14 +45,15 @@ export function createSale(input: CreateSaleInput) {
     if (!employee) {
       throw new ModelError(404, "No se encontró el empleado.");
     }
-    const details = await prepareSaleDetails(transaction, input.details);
-    return transaction.sale.create({
+    const saleDetails = await prepareSaleDetails(transaction, input.sale_details);
+    const sale = await transaction.sale.create({
       data: {
         clientId: input.clientId,
         employeeId: input.employeeId,
-        details: { create: details },
+        saleDetails: { create: saleDetails },
       },
       include: saleInclude,
     });
+    return formatSale(sale);
   });
 }

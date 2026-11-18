@@ -3,19 +3,19 @@ import type { SaleDetailInput } from "./sales.model.js";
 import { ModelError } from "./model-error.js";
 export async function prepareSaleDetails(
   transaction: Prisma.TransactionClient,
-  details: SaleDetailInput[],
+  saleDetails: SaleDetailInput[],
 ) {
   const products = await transaction.product.findMany({
-    where: { id: { in: details.map((detail) => detail.productId) } },
+    where: { id: { in: saleDetails.map((detail) => detail.productId) } },
   });
   const productsById = new Map(products.map((product) => [product.id, product]));
-  for (const detail of details) {
+  for (const detail of saleDetails) {
     if (!productsById.has(detail.productId)) {
       throw new ModelError(404, `No se encontró el producto ${detail.productId}.`);
     }
   }
-  const saleDetails = [];
-  for (const detail of details) {
+  const preparedDetails = [];
+  for (const detail of saleDetails) {
     const product = productsById.get(detail.productId);
     if (!product) {
       throw new ModelError(404, `No se encontró el producto ${detail.productId}.`);
@@ -33,11 +33,11 @@ export async function prepareSaleDetails(
         `Existencias insuficientes para el producto ${detail.productId}.`,
       );
     }
-    saleDetails.push({
+    preparedDetails.push({
       productId: detail.productId,
       quantity: detail.quantity,
       unitPrice: product.price,
     });
   }
-  return saleDetails;
+  return preparedDetails;
 }
