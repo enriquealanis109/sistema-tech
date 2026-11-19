@@ -91,13 +91,14 @@ model Employee {
 model Sale {
   id   Int      @id @default(autoincrement())
   date DateTime @default(now())
+  deletedAt DateTime? @map("deleted_at")
 
   client     Client   @relation(fields: [clientId], references: [id])
   clientId   Int      @map("client_id")
   employee   Employee @relation(fields: [employeeId], references: [id])
   employeeId Int      @map("employee_id")
 
-  details SaleDetail[]
+  saleDetails SaleDetail[]
 
   @@map("sales")
 }
