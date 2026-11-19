@@ -10,6 +10,20 @@ import {
 } from "../models/product.model.js";
 
 export async function registrarProducto(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Productos']
+    #swagger.summary = 'Registrar un nuevo producto'
+    #swagger.parameters['body'] = {
+        in: 'body',
+        schema: {
+            name: 'Teclado',
+            description: 'Teclado mecánico',
+            price: 150,
+            stock: 20,
+            categoryId: 1
+        }
+    }
+    */
     try {
         const { name, description, price, stock, categoryId } = req.body;
 
@@ -45,6 +59,10 @@ export async function registrarProducto(req: Request, res: Response) {
 }
 
 export async function obtenerProductos(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Productos']
+    #swagger.summary = 'Listar todos los productos'
+    */
     try {
         const productos = await listarProductos();
 
@@ -61,6 +79,10 @@ export async function obtenerProductos(req: Request, res: Response) {
 }
 
 export async function obtenerProductoPorId(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Productos']
+    #swagger.summary = 'Obtener un producto por ID'
+    */
     try {
         const id = Number(req.params.id);
 
@@ -93,6 +115,17 @@ export async function obtenerProductoPorId(req: Request, res: Response) {
 }
 
 export async function editarProducto(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Productos']
+    #swagger.summary = 'Actualizar un producto por ID'
+    #swagger.parameters['body'] = {
+        in: 'body',
+        schema: {
+            price: 180,
+            stock: 15
+        }
+    }
+    */
     try {
         const id = Number(req.params.id);
 
@@ -128,6 +161,10 @@ export async function editarProducto(req: Request, res: Response) {
 }
 
 export async function borrarProducto(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Productos']
+    #swagger.summary = 'Eliminar un producto por ID'
+    */
     try {
         const id = Number(req.params.id);
 

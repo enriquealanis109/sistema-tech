@@ -7,10 +7,11 @@ import {
     obtenerCategoriaPorId,
     borrarCategoria
 } from "../controllers/category.controller.js";
+import { validateCategory } from "../middlewares/validateCategory.js";
 
 const router: Router = Router();
 
-router.post("/", registrarCategoria);
+router.post("/", validateCategory, registrarCategoria);
 
 router.get("/", obtenerCategorias);
 

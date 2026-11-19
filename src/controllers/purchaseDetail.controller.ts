@@ -9,6 +9,19 @@ import {
 } from "../models/purchaseDetail.model.js";
 
 export async function registrarDetalleCompra(req: Request, res: Response) {
+    /*
+        #swagger.tags = ['Detalles de compra']
+        #swagger.summary = 'Registrar un detalle de compra'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                quantity: 5,
+                unitPrice: 100,
+                purchaseId: 1,
+                productId: 2
+            }
+        }
+    */
     try {
         const { quantity, unitPrice, purchaseId, productId } = req.body;
 
@@ -45,6 +58,10 @@ export async function registrarDetalleCompra(req: Request, res: Response) {
 }
 
 export async function obtenerDetallesCompra(req: Request, res: Response) {
+    /*
+        #swagger.tags = ['Detalles de compra']
+        #swagger.summary = 'Listar todos los detalles de compra'
+    */
     try {
         const detalles = await listarDetallesCompra();
 
@@ -61,6 +78,10 @@ export async function obtenerDetallesCompra(req: Request, res: Response) {
 }
 
 export async function obtenerDetalleCompraPorId(req: Request, res: Response) {
+    /*
+        #swagger.tags = ['Detalles de compra']
+        #swagger.summary = 'Obtener un detalle de compra por ID'
+    */
     try {
         const id = Number(req.params.id);
 
@@ -93,6 +114,10 @@ export async function obtenerDetalleCompraPorId(req: Request, res: Response) {
 }
 
 export async function borrarDetalleCompra(req: Request, res: Response) {
+    /*
+        #swagger.tags = ['Detalles de compra']
+        #swagger.summary = 'Eliminar un detalle de compra por ID'
+    */
     try {
         const id = Number(req.params.id);
 
