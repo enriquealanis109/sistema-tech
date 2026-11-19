@@ -15,3 +15,11 @@ export async function getEmployeeById(id: number) {
     include: { sales: true },
   });
 }
+
+export async function updateEmployee(id: number, data: EmployeeInput) {
+  return prisma.employee.update({ where: { id }, data });
+}
+
+export async function deleteEmployee(id: number) {
+  return prisma.employee.delete({ where: { id } });
+}

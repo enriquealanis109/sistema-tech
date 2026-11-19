@@ -15,3 +15,14 @@ export async function getClientById(id: number) {
     include: { sales: true },
   });
 }
+
+export async function updateClient(id: number, data: ClientInput) {
+  return prisma.client.update({
+    where: { id },
+    data,
+  });
+}
+
+export async function deleteClient(id: number) {
+  return prisma.client.delete({ where: { id } });
+}
