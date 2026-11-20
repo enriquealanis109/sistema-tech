@@ -23,7 +23,10 @@ function parseSaleId(req: Request, res: Response): number | null {
 export async function getSales(_req: Request, res: Response): Promise<void> {
   /* #swagger.tags = ['Sales']
      #swagger.summary = 'Lista las ventas activas'
-     #swagger.responses[200] = { description: 'Lista de ventas con sus detalles' } */
+     #swagger.responses[200] = {
+       description: 'Lista de ventas con sus detalles',
+       schema: [{ $ref: '#/definitions/Sale' }]
+     } */
   res.json(await findSales());
 }
 export async function getSaleById(
@@ -38,7 +41,10 @@ export async function getSaleById(
        type: 'integer',
        description: 'Identificador de la venta'
      }
-     #swagger.responses[200] = { description: 'Venta encontrada con sus detalles' }
+     #swagger.responses[200] = {
+       description: 'Venta encontrada con sus detalles',
+       schema: { $ref: '#/definitions/Sale' }
+     }
      #swagger.responses[404] = { description: 'No se encontró la venta' } */
   const id = parseSaleId(req, res);
   if (id === null) {
@@ -68,7 +74,10 @@ export async function createSale(
          ]
        }
      }
-     #swagger.responses[201] = { description: 'Venta creada' }
+     #swagger.responses[201] = {
+       description: 'Venta creada',
+       schema: { $ref: '#/definitions/Sale' }
+     }
      #swagger.responses[400] = { description: 'Datos de la venta no válidos' }
      #swagger.responses[404] = { description: 'No se encontró el cliente, empleado o producto' }
      #swagger.responses[409] = { description: 'Existencias insuficientes' } */
@@ -99,7 +108,10 @@ export async function updateSale(
          ]
        }
      }
-     #swagger.responses[200] = { description: 'Venta actualizada' }
+     #swagger.responses[200] = {
+       description: 'Venta actualizada',
+       schema: { $ref: '#/definitions/Sale' }
+     }
      #swagger.responses[400] = { description: 'Datos de la venta no válidos' }
      #swagger.responses[404] = { description: 'No se encontró la venta, cliente, empleado o producto' }
      #swagger.responses[409] = { description: 'Existencias insuficientes' } */

@@ -15,9 +15,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/sales", salesRouter);
 app.use(errorHandler);
 
+app.use("/sales", salesRouter); // esto era lo que me faltaba??
 app.use("/api/docs", swaggerRouter);
 app.use("/api/suppliers", supplierRoutes);
 app.use("/api/purchases", purchaseRoutes);
