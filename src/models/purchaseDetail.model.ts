@@ -36,6 +36,25 @@ export async function buscarDetalleCompraPorId(id: number) {
     });
 }
 
+export async function actualizarDetalleCompra(
+    id: number,
+    data: {
+        quantity?: number;
+        unitPrice?: number;
+        purchaseId?: number;
+        productId?: number;
+    }
+) {
+    return await prisma.purchaseDetail.update({
+        where: { id },
+        data,
+        include: {
+            product: true,
+            purchase: true
+        }
+    });
+}
+
 export async function eliminarDetalleCompra(id: number) {
     return await prisma.purchaseDetail.delete({
         where: { id }

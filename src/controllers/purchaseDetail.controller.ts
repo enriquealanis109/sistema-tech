@@ -5,7 +5,8 @@ import {
     crearDetalleCompra,
     listarDetallesCompra,
     buscarDetalleCompraPorId,
-    eliminarDetalleCompra
+    eliminarDetalleCompra,
+    actualizarDetalleCompra
 } from "../models/purchaseDetail.model.js";
 
 export async function registrarDetalleCompra(req: Request, res: Response) {
@@ -113,11 +114,62 @@ export async function obtenerDetalleCompraPorId(req: Request, res: Response) {
     }
 }
 
+
+export async function editarDetalleCompra(req: Request, res: Response) {
+    /*
+        #swagger.tags = ['Detalles de compra']
+        #swagger.summary = 'Actualizar un detalle de compra por ID'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                quantity: 8,
+                unitPrice: 120
+            }
+        }
+    */
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: "ID inválido"
+            });
+        }
+
+        const detalleExistente = await buscarDetalleCompraPorId(id);
+
+        if (!detalleExistente) {
+            return res.status(404).json({
+                ok: false,
+                mensaje: "Detalle de compra no encontrado"
+            });
+        }
+
+        const detalle = await actualizarDetalleCompra(id, req.body);
+
+        return res.status(200).json({
+            ok: true,
+            mensaje: "Detalle de compra actualizado correctamente",
+            data: detalle
+        });
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            mensaje: "Error al actualizar el detalle de compra"
+        });
+    }
+}
+
+
 export async function borrarDetalleCompra(req: Request, res: Response) {
     /*
         #swagger.tags = ['Detalles de compra']
         #swagger.summary = 'Eliminar un detalle de compra por ID'
     */
+
+
+
     try {
         const id = Number(req.params.id);
 
