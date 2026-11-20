@@ -8,10 +8,10 @@ import {
     borrarDetalleCompra
 } from "../controllers/purchaseDetail.controller.js";
 
+import { validatePurchaseDetail } from "../middlewares/validatePurchaseDetail.js";
 const router: Router = Router();
 
-router.post("/", registrarDetalleCompra);
-
+router.post("/", validatePurchaseDetail, registrarDetalleCompra);
 router.get("/", obtenerDetallesCompra);
 
 router.get("/:id", obtenerDetalleCompraPorId);

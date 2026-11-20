@@ -9,6 +9,16 @@ import {
 } from "../models/category.model.js";
 
 export async function registrarCategoria(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Categorías']
+    #swagger.summary = 'Registrar una nueva categoría'
+    #swagger.parameters['body'] = {
+        in: 'body',
+        schema: {
+            name: 'Electrónica'
+        }
+    }
+    */
     try {
         const { name } = req.body;
 
@@ -35,6 +45,10 @@ export async function registrarCategoria(req: Request, res: Response) {
 }
 
 export async function obtenerCategorias(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Categorías']
+    #swagger.summary = 'Listar todas las categorías'
+    */
     try {
         const categorias = await listarCategorias();
 
@@ -51,6 +65,10 @@ export async function obtenerCategorias(req: Request, res: Response) {
 }
 
 export async function obtenerCategoriaPorId(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Categorías']
+    #swagger.summary = 'Obtener una categoría por ID'
+    */
     try {
         const id = Number(req.params.id);
 
@@ -83,6 +101,10 @@ export async function obtenerCategoriaPorId(req: Request, res: Response) {
 }
 
 export async function borrarCategoria(req: Request, res: Response) {
+    /*
+    #swagger.tags = ['Categorías']
+    #swagger.summary = 'Eliminar una categoría por ID'
+    */
     try {
         const id = Number(req.params.id);
 
