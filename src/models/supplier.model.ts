@@ -24,7 +24,7 @@ export async function getSupplierById(id: number) {
   });
 }
 
-export async function createSupplier(name: string, phone?: string) {
+export async function createSupplier(name: string, phone: string) {
   return await prisma.supplier.create({
     data: {
       name,
