@@ -9,3 +9,10 @@ export const categorySchema = z.object({
         .min(1, "El nombre de la categoria es obligatorio")
         .max(80, "El nombre no puede superar los 80 caracteres")
 });
+
+export const categoryUpdateSchema = categorySchema
+    .partial()
+    .refine(
+        (data) => Object.keys(data).length > 0,
+        "Debes enviar al menos un campo para actualizar"
+    );

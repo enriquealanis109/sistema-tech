@@ -16,3 +16,10 @@ export const purchaseDetailSchema = z.object({
         .int("El ID del producto debe ser un número entero")
         .positive("Debes seleccionar un producto válido")
 });
+
+export const purchaseDetailUpdateSchema = purchaseDetailSchema
+    .partial()
+    .refine(
+        (data) => Object.keys(data).length > 0,
+        "Debes enviar al menos un campo para actualizar"
+    );

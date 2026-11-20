@@ -20,6 +20,17 @@ export async function buscarCategoriaPorId(id: number) {
     });
 }
 
+export async function actualizarCategoria(id: number, name: string) {
+    return await prisma.category.update({
+        where: {
+            id
+        },
+        data: {
+            name
+        }
+    });
+}
+
 export async function elimininarCategoria(id: number) {
     return await prisma.category.delete({
         where: {
