@@ -48,7 +48,8 @@ model Supplier {
 model Purchase {
   id   Int      @id @default(autoincrement())
   date DateTime @default(now())
-
+   deletedAt DateTime? @map("deleted_at")
+  
   supplier   Supplier @relation(fields: [supplierId], references: [id])
   supplierId Int      @map("supplier_id")
 
