@@ -144,7 +144,7 @@ export async function updatePurchaseController(req: Request, res: Response) {
 
     const compraActualizada = await updatePurchase(
       id,
-      new Date(date),
+      date,
       supplierId,
       details,
     );
